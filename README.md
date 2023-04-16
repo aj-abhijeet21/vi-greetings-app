@@ -1,3 +1,11 @@
+# Simple Greetings Generator React App
+
+The main feature of this app is to ability to select and upload the image, scale and rotate the image, and finally
+generate a greeting with the uploaded image (refer screenshot below)
+
+It also utilizes formik and yup for User Registration form validation, TailWind for styling, react-avatar-editor
+for editing the image, and canvas for exporting and merging multiple images.
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
