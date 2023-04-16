@@ -13,7 +13,10 @@ function RegistrationWrapper() {
   }
   return (
     <>
-      <div className='text-xl md:invisible flex-col h-screen p-4'>
+      <div className='invisible md:visible'>
+        <DesktopView />
+      </div>
+      <div className='text-xl md:invisible flex-col h-screen justify-start p-4'>
         <div className='text-3xl text-primary mt-8'>Registration Details</div>
         <div className='text-left p-4'>
           <Formik
@@ -90,9 +93,6 @@ function RegistrationWrapper() {
             </Form>
           </Formik>
         </div>
-      </div>
-      <div className='invisible md:visible'>
-        <DesktopView />
       </div>
     </>
   )

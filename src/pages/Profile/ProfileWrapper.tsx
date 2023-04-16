@@ -9,6 +9,7 @@ import {
   RiCameraLine,
 } from 'react-icons/ri'
 import { FiRotateCcw, FiRotateCw } from 'react-icons/fi'
+import DesktopView from '../../components/DesktopView'
 
 function ProfileWrapper() {
   const [selectedFile, setSelectedFile] = useState('')
@@ -79,176 +80,181 @@ function ProfileWrapper() {
   }
 
   return (
-    <div className='h-screen p-6'>
-      <div className='text-2xl text-center font-semibold text-dark mb-2'>Edit Greeting</div>
-      {selectedFile ? (
-        <div className='bg-red-400 flex justify-center '>
-          <AvatarEditor
-            image={selectedFile}
-            width={250}
-            height={250}
-            border={0}
-            scale={scale}
-            rotate={rotation}
-            ref={editor}
-            className='mt-[115px] absolute text-center -z-10'
-          />
-        </div>
-      ) : (
-        <div
-          className='top-[26%] left-[27%] absolute flex justify-center items-center '
-          onClick={() => inputRef.current?.click()}
-        >
-          <div className='bg-white w-[180px] h-[180px] rounded-full flex justify-center items-center -z-10'>
-            <span className='text-dark flex items-center'>
-              <RiCameraLine />
-              <div className='text-dark ml-2'>Add Photo</div>
-            </span>
-          </div>
-          <input
-            ref={inputRef}
-            type='file'
-            className='mt-10 text-center bg-dark rounded-full'
-            onChange={handleImageUpload}
-            accept='image/png, image/jpeg'
-            hidden
-          />
-        </div>
-      )}
-
-      <div className='text-center z-10'>
-        <img src={require('../../assets/images/frame.png')} alt='frame' />
-        <div className='text-center absolute left-[25%] -mt-10'>
-          <input
-            type='text'
-            className='bg-primary text-white text-center border-0 focus:border-none placeholder:text-white'
-            value={captionText}
-            placeholder={'Edit Caption'}
-            onChange={(e) => setCaptionText(e.currentTarget.value)}
-          />
-        </div>
+    <>
+      <div className='invisible md:visible'>
+        <DesktopView />
       </div>
-      <div className='text-center mt-4'>
-        {/* navigate to home */}
-        {selectedFile === '' && (
-          <Link to='/registration'>
-            <button className='bg-secondary text-lg text-dark px-8 py-2 rounded-full text-center'>
-              <div className='text-lg'>
-                <span className='flex items-center'>
-                  <RiHome4Line />
-                  <div className='text-lg ml-2'>Home</div>
-                </span>
-              </div>
-            </button>
-          </Link>
-        )}
-
-        {/* edit image */}
-        {isEditMode && (
-          <div className='flex justify-between items-center'>
-            <div className='mr-4'>
-              <div className='flex items-center'>
-                <button
-                  className='text-xl font-bold'
-                  onClick={() => setScale((prev) => prev - 0.1)}
-                >
-                  -
-                </button>
-                <input
-                  type='range'
-                  className=' h-[2px] bg-dark accent-primary rounded-lg appearance-none cursor-pointer mx-2'
-                  value={scale}
-                  min={0.5}
-                  max={5}
-                  onChange={(e) => setScale(Number(e.target.value))}
-                />
-                <button
-                  className='text-xl font-bold'
-                  onClick={() => setScale((prev) => prev + 0.1)}
-                >
-                  +
-                </button>
-              </div>
-              <div className='block mb-2 text-sm font-medium text-gray-900 '>Zoom</div>
+      <div className='md:invisible h-screen p-6'>
+        <div className='text-2xl text-center font-semibold text-dark mb-2'>Edit Greeting</div>
+        {selectedFile ? (
+          <div className='bg-red-400 flex justify-center '>
+            <AvatarEditor
+              image={selectedFile}
+              width={250}
+              height={250}
+              border={0}
+              scale={scale}
+              rotate={rotation}
+              ref={editor}
+              className='mt-[115px] absolute text-center -z-10'
+            />
+          </div>
+        ) : (
+          <div
+            className='top-[26%] left-[27%] absolute flex justify-center items-center '
+            onClick={() => inputRef.current?.click()}
+          >
+            <div className='bg-white w-[180px] h-[180px] rounded-full flex justify-center items-center -z-10'>
+              <span className='text-dark flex items-center'>
+                <RiCameraLine />
+                <div className='text-dark ml-2'>Add Photo</div>
+              </span>
             </div>
-            <div className='mr-4'>
-              <div className='flex items-center'>
-                <button onClick={() => setRotation((prev) => prev - 1)}>
-                  <FiRotateCcw />
-                </button>
-                <input
-                  type='range'
-                  className=' h-[2px] bg-dark accent-primary rounded-lg appearance-none cursor-pointer mx-2'
-                  value={rotation}
-                  min={0}
-                  max={360}
-                  onChange={(e) => setRotation(Number(e.target.value))}
-                />
-                <button onClick={() => setRotation((prev) => prev + 1)}>
-                  <FiRotateCw />
-                </button>
-              </div>
-              <div className='block mb-2 text-sm font-medium text-gray-900 '>Rotate</div>
-            </div>
+            <input
+              ref={inputRef}
+              type='file'
+              className='mt-10 text-center bg-dark rounded-full'
+              onChange={handleImageUpload}
+              accept='image/png, image/jpeg'
+              hidden
+            />
           </div>
         )}
 
-        {/* edit image button */}
-        {selectedFile && !isEditMode && !isSubmitted && (
-          <button
-            className='bg-secondary text-lg text-dark px-8 py-2 rounded-full text-center'
-            onClick={() => setEditMode(true)}
-          >
-            <span className='flex items-center'>
-              <RiImageEditLine />
-              <div className='text-lg ml-2'>Edit</div>
-            </span>
-          </button>
-        )}
-
-        {/* submit button */}
-        {isEditMode && !isSubmitted && (
-          <button
-            className='bg-secondary text-lg text-dark px-8 py-2 rounded-full text-center'
-            onClick={() => setSubmitted(true)}
-          >
-            <div className='text-lg ml-2'>Submit</div>
-          </button>
-        )}
-
-        {/* after submit actions */}
-        {isSubmitted && (
-          <div className='flex justify-evenly'>
+        <div className='text-center z-10'>
+          <img src={require('../../assets/images/frame.png')} alt='frame' />
+          <div className='text-center absolute left-[25%] -mt-10'>
+            <input
+              type='text'
+              className='bg-primary text-white text-center border-0 focus:border-none placeholder:text-white'
+              value={captionText}
+              placeholder={'Edit Caption'}
+              onChange={(e) => setCaptionText(e.currentTarget.value)}
+            />
+          </div>
+        </div>
+        <div className='text-center mt-4'>
+          {/* navigate to home */}
+          {selectedFile === '' && (
             <Link to='/registration'>
-              <button className='bg-secondary text-lg text-dark px-3 py-2 rounded-full text-center'>
-                <span className='flex items-center'>
-                  <RiHome4Line />
-                  <div className='text-lg ml-2'>Home</div>
-                </span>
+              <button className='bg-secondary text-lg text-dark px-8 py-2 rounded-full text-center'>
+                <div className='text-lg'>
+                  <span className='flex items-center'>
+                    <RiHome4Line />
+                    <div className='text-lg ml-2'>Home</div>
+                  </span>
+                </div>
               </button>
             </Link>
+          )}
+
+          {/* edit image */}
+          {isEditMode && (
+            <div className='flex justify-between items-center'>
+              <div className='mr-4'>
+                <div className='flex items-center'>
+                  <button
+                    className='text-xl font-bold'
+                    onClick={() => setScale((prev) => prev - 0.1)}
+                  >
+                    -
+                  </button>
+                  <input
+                    type='range'
+                    className=' h-[2px] bg-dark accent-primary rounded-lg appearance-none cursor-pointer mx-2'
+                    value={scale}
+                    min={0.5}
+                    max={5}
+                    onChange={(e) => setScale(Number(e.target.value))}
+                  />
+                  <button
+                    className='text-xl font-bold'
+                    onClick={() => setScale((prev) => prev + 0.1)}
+                  >
+                    +
+                  </button>
+                </div>
+                <div className='block mb-2 text-sm font-medium text-gray-900 '>Zoom</div>
+              </div>
+              <div className='mr-4'>
+                <div className='flex items-center'>
+                  <button onClick={() => setRotation((prev) => prev - 1)}>
+                    <FiRotateCcw />
+                  </button>
+                  <input
+                    type='range'
+                    className=' h-[2px] bg-dark accent-primary rounded-lg appearance-none cursor-pointer mx-2'
+                    value={rotation}
+                    min={0}
+                    max={360}
+                    onChange={(e) => setRotation(Number(e.target.value))}
+                  />
+                  <button onClick={() => setRotation((prev) => prev + 1)}>
+                    <FiRotateCw />
+                  </button>
+                </div>
+                <div className='block mb-2 text-sm font-medium text-gray-900 '>Rotate</div>
+              </div>
+            </div>
+          )}
+
+          {/* edit image button */}
+          {selectedFile && !isEditMode && !isSubmitted && (
             <button
-              className='bg-secondary text-lg text-dark px-3 py-2 rounded-full text-center'
-              onClick={handleDownload}
+              className='bg-secondary text-lg text-dark px-8 py-2 rounded-full text-center'
+              onClick={() => setEditMode(true)}
             >
               <span className='flex items-center'>
-                <RiDownloadLine />
-                <div className='text-lg ml-2'>Download</div>
+                <RiImageEditLine />
+                <div className='text-lg ml-2'>Edit</div>
               </span>
             </button>
+          )}
+
+          {/* submit button */}
+          {isEditMode && !isSubmitted && (
             <button
-              className='bg-secondary text-lg text-dark px-3 py-2 rounded-full text-center'
-              onClick={handleShare}
+              className='bg-secondary text-lg text-dark px-8 py-2 rounded-full text-center'
+              onClick={() => setSubmitted(true)}
             >
-              <span className='flex items-center'>
-                <RiShareForwardFill />
-                <div className='text-lg ml-2'>Share</div>
-              </span>
+              <div className='text-lg ml-2'>Submit</div>
             </button>
-          </div>
-        )}
+          )}
+
+          {/* after submit actions */}
+          {isSubmitted && (
+            <div className='flex justify-evenly'>
+              <Link to='/registration'>
+                <button className='bg-secondary text-lg text-dark px-3 py-2 rounded-full text-center'>
+                  <span className='flex items-center'>
+                    <RiHome4Line />
+                    <div className='text-lg ml-2'>Home</div>
+                  </span>
+                </button>
+              </Link>
+              <button
+                className='bg-secondary text-lg text-dark px-3 py-2 rounded-full text-center'
+                onClick={handleDownload}
+              >
+                <span className='flex items-center'>
+                  <RiDownloadLine />
+                  <div className='text-lg ml-2'>Download</div>
+                </span>
+              </button>
+              <button
+                className='bg-secondary text-lg text-dark px-3 py-2 rounded-full text-center'
+                onClick={handleShare}
+              >
+                <span className='flex items-center'>
+                  <RiShareForwardFill />
+                  <div className='text-lg ml-2'>Share</div>
+                </span>
+              </button>
+            </div>
+          )}
+        </div>
       </div>
-    </div>
+    </>
   )
 }
 
