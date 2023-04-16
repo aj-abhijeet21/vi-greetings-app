@@ -6,6 +6,22 @@ generate a greeting with the uploaded image (refer screenshot below)
 It also utilizes formik and yup for User Registration form validation, TailWind for styling, react-avatar-editor
 for editing the image, and canvas for exporting and merging multiple images.
 
+## Screenshots
+
+<p align="center">
+  <img src="https://user-images.githubusercontent.com/40262579/232338461-7b139d58-d4ad-400e-aee5-e2e475872e47.png" width="45%">
+&nbsp; &nbsp; &nbsp; &nbsp;
+  <img src="https://user-images.githubusercontent.com/40262579/232338533-4ff5350b-d561-42cd-98e3-16f6c8a263ac.png" width="45%">
+</p>
+
+<p align="center">
+  <img src="https://user-images.githubusercontent.com/40262579/232338575-059f53e6-5685-4e96-a94e-dbe98ef480b9.png" width="45%">
+&nbsp; &nbsp; &nbsp; &nbsp;
+  <img src="https://user-images.githubusercontent.com/40262579/232338591-7ffbc37b-3fd4-4512-a8aa-cfe76777905e.png" width="45%">
+</p>
+
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
