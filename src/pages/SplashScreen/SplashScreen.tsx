@@ -8,7 +8,7 @@ function SplashScreen() {
     setTimeout(() => {
       navigate('/registration')
     }, 3000)
-  }, [])
+  }, [navigate])
 
   return (
     <div className='flex justify-center items-center text-center h-full animate-pulse'>
