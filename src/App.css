@@ -1,3 +1,12 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: 'Vi-Regular';
+  src: local('Vi-Regular'), url('/src/assets/fonts/Vi-Regular.woff') format('woff');
+}
+
 .App {
   text-align: center;
 }
