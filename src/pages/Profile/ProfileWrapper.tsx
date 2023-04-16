@@ -58,6 +58,7 @@ function ProfileWrapper() {
       document.body.appendChild(link)
       link.dispatchEvent(new MouseEvent('click'))
       link?.parentNode?.removeChild(link)
+      canvas.remove()
     }, 100)
   }
 
